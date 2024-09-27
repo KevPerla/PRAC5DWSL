@@ -18,6 +18,6 @@ class HomeController extends BaseController
             ]
         ];
 
-        return $this->view('home', $data);
+        return $this->view('home/home', $data);
     }
 }
