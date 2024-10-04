@@ -87,7 +87,7 @@
             </a>
             <div class="collapse" id="page-matriculas">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">Materias</a></li>
+                <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/materias">Materias</a></li>
                 <li class="nav-item"> <a class="nav-link" href="#">Alumnos</a></li>
                 <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">Docentes</a></li>
               </ul>
