@@ -2,6 +2,13 @@
 require_once 'config/TemplateEngine.php';
 
 class BaseController {
+
+    public function __construct()
+    {
+        if(session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
     protected function view($name, $data = [])
     {
         $template = new TemplateEngine('views/'.$name.'.php');
@@ -26,6 +33,14 @@ class BaseController {
         http_response_code($code);
         echo 'Pagina no encontrada';
         exit();
+    }
+
+    protected function setFlash($message, $type = "success")
+    {
+        $_SESSION['flash_message'] = [
+            'type' => $type,
+            'message' => $message
+        ];
     }
 }
 ?>

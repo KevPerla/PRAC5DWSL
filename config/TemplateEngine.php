@@ -37,8 +37,28 @@ class TemplateEngine {
             return '<?php echo $' . $matches[1] . '; ?>';
         }, $content);
 
-        $content = preg_replace_callback('/@if\s*\(([^)]+)\)(.*?)@else(.*?)@endif/s', function($matches) {
-            return '<?php if (' . $matches[1] . '): ?>' . $matches[2] . '<?php else: ?>' . $matches[3] . '<?php endif; ?>';
+        $content = preg_replace_callback('/@if\s*\(([^)]+)\)(.*?)((@else(.*?))?)@endif/s', function($matches) {
+            $condition = $matches[1];
+            $ifContent = $matches[2];
+            $elseContent = isset($matches[5]) ? $matches[5] : '';
+        
+            return "<?php if ($condition): ?>$ifContent<?php else: ?>$elseContent<?php endif; ?>";
+        }, $content);
+        
+        // Nueva directiva: @isset
+        $content = preg_replace_callback('/@isset\s*\(([^)]+)\)\s*(.*?)\s*@endisset/s', function($matches) {
+            $variable = $matches[1];
+            $content = $matches[2];
+
+            return "<?php if (isset($variable)): ?>$content<?php endif; ?>";
+        }, $content);
+
+        // Nueva directiva: @empty
+        $content = preg_replace_callback('/@empty\s*\(([^)]+)\)\s*(.*?)\s*@endempty/s', function($matches) {
+            $variable = $matches[1];
+            $content = $matches[2];
+
+            return "<?php if (empty($variable)): ?>$content<?php endif; ?>";
         }, $content);
 
         $content = preg_replace_callback('/@extends\(\'([^\']+)\'\)/', function($matches) {

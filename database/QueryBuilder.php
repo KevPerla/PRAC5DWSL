@@ -18,6 +18,7 @@ class QueryBuilder
     public function __construct(Model $model)
     {
         $this->model = $model;
+        error_reporting(E_ALL & ~E_DEPRECATED);
     }
 
     public function insert($data)

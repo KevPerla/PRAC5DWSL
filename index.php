@@ -13,7 +13,8 @@ $router->get('/home', 'HomeController@index');
 $router->get('/materias', 'MateriasController@index');
 $router->get('/agregar-materia', 'MateriasController@create');
 $router->post('/guardar-materia', 'MateriasController@insert');
-
-
+$router->get('/editar-materia/{id}', 'MateriasController@edit');
+$router->post('/actualizar-materia/{id}', 'MateriasController@update');
+$router->post('/borrar-materia/{id}', 'MateriasController@delete');
 $router->run();
 ?>

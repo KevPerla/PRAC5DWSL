@@ -10,11 +10,11 @@
       @yield('content-title')
   </title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="public/vendors/iconfonts/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="public/vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="public/vendors/css/vendor.bundle.addons.css">
+  <link rel="stylesheet" href="/public/vendors/iconfonts/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/public/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/public/vendors/css/vendor.bundle.addons.css">
   
-  <link rel="stylesheet" href="public/css/style.css">
+  <link rel="stylesheet" href="/public/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="http://www.urbanui.com/" />
 </head>
@@ -23,8 +23,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index-2.html"><img src="public/images/logo.svg" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="public/images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="index-2.html"><img src="/public/images/logo.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index-2.html"><img src="/public/images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -61,7 +61,7 @@
           <li class="nav-item nav-profile">
             <div class="nav-link">
               <div class="profile-image">
-                <img src="public/images/faces/face5.jpg" alt="image"/>
+                <img src="/public/images/faces/face5.jpg" alt="image"/>
               </div>
               <div class="profile-name">
                 <p class="name">
@@ -145,14 +145,14 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="public/vendors/js/vendor.bundle.base.js"></script>
-  <script src="public/vendors/js/vendor.bundle.addons.js"></script>
-  <script src="public/js/off-canvas.js"></script>
-  <script src="public/js/hoverable-collapse.js"></script>
-  <script src="public/js/misc.js"></script>
-  <script src="public/js/settings.js"></script>
-  <script src="public/js/todolist.js"></script>
-  <script src="public/js/dashboard.js"></script>
+  <script src="/public/vendors/js/vendor.bundle.base.js"></script>
+  <script src="/public/vendors/js/vendor.bundle.addons.js"></script>
+  <script src="/public/js/off-canvas.js"></script>
+  <script src="/public/js/hoverable-collapse.js"></script>
+  <script src="/public/js/misc.js"></script>
+  <script src="/public/js/settings.js"></script>
+  <script src="/public/js/todolist.js"></script>
+  <script src="/public/js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
 

@@ -6,9 +6,20 @@ Materias
 @section('content')
 <div class="page-header">
     <h3 class="page-title">
-      Materias
+        Materias
     </h3>
 </div>
+@isset($_SESSION['flash_message'])
+<div class="alert alert-{{$_SESSION['flash_message']['type']}} alert-dismissible fade show" role="alert">
+    {{$_SESSION['flash_message']['message']}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@php
+unset($_SESSION['flash_message'])
+@endphp
+@endisset
 <div class="row">
     <div class="col-lg-12">
         <form action="/materias" method="get">
@@ -22,8 +33,9 @@ Materias
                             </h4>
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Ingresa el nombre de la materia"
-                                    aria-label="Ingresa el nombre de la materia" name="search" value="{{$search}}">
+                                    <input type="text" class="form-control"
+                                        placeholder="Ingresa el nombre de la materia"
+                                        aria-label="Ingresa el nombre de la materia" name="search" value="{{$search}}">
                                     <div class="input-group-append">
                                         <button class="btn btn-sm btn-primary" type="submit">Search</button>
                                     </div>
@@ -35,20 +47,20 @@ Materias
             </div>
         </form>
     </div>
-        <div class="col-lg-12">
-            <div class="card">
-               <div class="card-body">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
 
-               <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-list mr-2"></i>
-                    <h5 class="mb-0">Lista de materias</h5>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-list mr-2"></i>
+                        <h5 class="mb-0">Lista de materias</h5>
+                    </div>
+
+                    <a href="/agregar-materia" class="btn btn-primary">
+                        <i class="fa fa-plus"></i> Nuevo
+                    </a>
                 </div>
-
-            <a href="/agregar-materia" class="btn btn-primary">
-                <i class="fa fa-plus"></i> Nuevo
-            </a>
-            </div>
 
                 <div class="table-responsive">
                     <table class="table">
@@ -62,22 +74,49 @@ Materias
                             </tr>
                         </thead>
                         <tbody>
-                              @foreach($materias as $materia)
-                                <tr>
-                                    <td>{{$materia->id}}</td>
-                                    <td>{{$materia->name}}</td>
-                                    <td>{{$materia->created_at}}</td>
-                                    <td>{{$materia->updated_at}}</td>
-                                    <td>
-                                        <a href="#" class="mr-1">
-                                            <i class="fa fa-pencil-alt"></i>
-                                        </a>
-                                        <a href="#">
-                                            <i class="fa fa-trash text-danger"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
+                            @foreach($materias as $materia)
+                            <tr>
+                                <td>{{$materia->id}}</td>
+                                <td>{{$materia->name}}</td>
+                                <td>{{$materia->created_at}}</td>
+                                <td>{{$materia->updated_at}}</td>
+                                <td>
+                                    <a href="/editar-materia/{{$materia->id}}" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                        data-target="#modal-materias-{{$materia->id}}">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <form action="borrar-materia/{{$materia->id}}" method="post" id="materia-{{$materia->id}}">
+                                <div class="modal fade" id="modal-materias-{{$materia->id}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="modal-materias-label-{{$materia->id}}">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header" id="modal-materias-lablel{{$materia->id}}">
+                                                <h5 class="modal-title">Advertencia</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>
+                                                    Quieres eliminar este registro (<b>{{$materia->name}}</b>)
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                <button type="button" class="btn btn-light" data-dismiss="true">Cancelar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            @endforeach
                         </tbody>
                     </table>
 
@@ -85,9 +124,9 @@ Materias
                         {{$paginator}}
                     </div>
                 </div>
-               </div>
             </div>
         </div>
     </div>
+</div>
 
 @endsection
