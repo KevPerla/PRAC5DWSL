@@ -11,6 +11,8 @@ $router = new Router();
 $router->get('/', 'AuthController@index');
 $router->get('/home', 'HomeController@index');
 $router->get('/materias', 'MateriasController@index');
+$router->get('/agregar-materia', 'MateriasController@create');
+$router->post('/guardar-materia', 'MateriasController@insert');
 
 
 $router->run();

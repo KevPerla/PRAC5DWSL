@@ -45,7 +45,7 @@ class TemplateEngine {
             return file_get_contents($matches[1]);
         }, $content);
 
-        $content = preg_replace_callback('/@foreach\s*\(([^)]+)\)\s*(.*?)\s*@endforeach/', function($matches) {
+        $content = preg_replace_callback('/@foreach\s*\(([^)]+)\)\s*(.*?)\s*@endforeach/s', function($matches) {
             return '<?php foreach (' . $matches[1] . '): ?>' . $matches[2] . '<?php endforeach; ?>';
         }, $content);
 
@@ -82,5 +82,6 @@ class TemplateEngine {
             $this->sections[$name] = $content;
         }
     }
+
 }
 ?>
