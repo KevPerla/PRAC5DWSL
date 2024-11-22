@@ -6,6 +6,7 @@ require_once "controllers/HomeController.php";
 require_once "controllers/MateriasController.php";
 require_once "controllers/GruposController.php";
 require_once "controllers/PermisosController.php";
+require_once "controllers/UsersController.php";
 require_once "routes/Router.php";
 
 $router = new Router();
@@ -28,6 +29,14 @@ $router->post('/actualizar-grupo/{id}', 'GruposController@update');
 $router->post('/borrar-grupo/{id}', 'GruposController@delete');
 
 $router->get('/permisos/{id}', 'PermisosController@index');
+$router->post('/cambiar-permisos/{id}', 'PermisosController@update');
+
+$router->get('/users', 'UsersController@index');
+$router->get('/agregar-usuario', 'UsersController@create');
+$router->post('/guardar-usuario', 'UsersController@insert');
+$router->get('/editar-usuario/{id}', 'UsersController@edit');
+$router->post('/actualizar-usuario/{id}', 'UsersController@update');
+$router->post('/borrar-usuario/{id}', 'UsersController@delete');
 
 $router->run();
 ?>

@@ -11,7 +11,7 @@ Asignar permisos {{$grupo->name}}
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <form action="#" method="post">
+        <form action="/cambiar-permisos/{{$grupo->id}}" method="post">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -33,7 +33,7 @@ Asignar permisos {{$grupo->name}}
                                     <div class="form-group">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" value="{{$permiso->id}}">
+                                                <input type="checkbox" name="permisos[]" class="form-check-input" value="{{$permiso->id}}" {{$permiso->asigned ? "checked" : ""}}>
                                                  @php
                                                  $name = str_replace('_', ' ', $permiso->name);
                                                  echo strtoupper($name);
