@@ -93,8 +93,8 @@ unset($_SESSION['flash_message'])
                                 </td>
                             </tr>
 
-                            <form action="borrar-usuario/{{$user->id}}" method="post" id="materia-{{$user->id}}">
-                                <div class="modal fade" id="modal-materias-{{$user->id}}" tabindex="-1" role="dialog"
+                            <form action="/borrar-usuario/{{$user->id}}" method="post" id="users-{{$user->id}}">
+                                <div class="modal fade" id="modal-users-{{$user->id}}" tabindex="-1" role="dialog"
                                     aria-labelledby="modal-users-label-{{$user->id}}">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">

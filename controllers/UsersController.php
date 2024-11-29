@@ -35,7 +35,6 @@ class UsersController extends BaseController
         $fields = [
             'nombres'  => 'El campo nombre es requerido',
             'apellidos'=> 'El campo apellido es requerido',
-            'email'=> 'El campo email es requerido',
             'password'=> 'El campo contraseña es requerido',
             'grupo'=> 'El campo grupo es requerido',
         ];
@@ -56,7 +55,6 @@ class UsersController extends BaseController
 
         $nombres = $request->post('nombres');
         $apellidos = $request->post('apellidos');
-        $email = $request->post('email');
         $password = $request->post('password');
         $grupo = $request->post('grupo');
         $file = $_FILES['imagen'];
@@ -107,6 +105,113 @@ class UsersController extends BaseController
         $carnet = substr($codigo_unico, 0, $longitud);
 
         return $carnet;
+    }
 
+    public function edit($id)
+    {
+        $user = DB::table('users')->where('id', '=', $id)->first();
+        $grupos = DB::table('users_groups')->get();
+
+        if($user) {
+            return $this->view('users/edit', ['users' => $user, 'grupos' => $grupos]);
+        } else {
+            $this->setFlash("El usario no fue encontrado", "danger");
+            return $this->redirect('/users');
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = DB::table('users')->where('id', '=', $id)->first();
+        if(!$user){
+            $this->setFlash("El usario no fue encontrado", "danger");
+            return $this->redirect('/users');
+        }
+        $fields = [
+            'nombres'  => 'El campo nombre es requerido',
+            'apellidos'=> 'El campo apellido es requerido',
+            'grupo'=> 'El campo grupo es requerido',
+        ];
+
+        $validator = [];
+
+        foreach($fields as $field => $error)
+        {
+            if (empty($request->post($field))) {
+                $validator[] = $error;
+            }
+        }
+
+        if (!empty($validator)) {
+            $this->setFlash("Error al crear un usario", "danger");
+            return $this->redirect('/users');
+        }
+
+        $data = [
+            'nombres'  => trim($request->post('nombres')),
+            'apellidos'  => trim($request->post('apellidos')),
+            'id_user_group'  => $request->post('grupo'),
+            'updated_at'  => date('Y-m-d H:i:s')
+        ];
+
+        $password = $request->post('password');
+        $file = $_FILES['imagen'];
+        $imagen = "";
+        if (!empty($password)){
+            $password_hash = password_hash(trim($password), PASSWORD_BCRYPT);
+            $data['password'] = $password_hash;
+        }
+        
+        if ($file && !empty($file['tmp_name'])) {
+            $upload_dir = "uploads/{$user->carnet}";
+            $current_img = "{$upload_dir}/{$user->imagen}";
+
+            if(file_exists($current_img)){
+                unlink($current_img);
+            }
+            if(!is_dir($upload_dir)){
+                mkdir($upload_dir, 0777, true);
+            }
+
+            $imagen = time() . '_' . basename($file["name"]);
+
+            $imagen_path = "{$upload_dir}/{$imagen}";
+            if(!move_uploaded_file($file["tmp_name"], $imagen_path)) {
+                $this->setFlash("Error al guardar imagen de usuario", "danger");
+                return $this->redirect('/users');
+            }
+            $data['imagen'] = $imagen;
+        }
+
+        $result = DB::table('users')->where('id', '=', $id)->update($data);
+        if($result > 0) {
+            $this->setFlash("El usuario fue actualizado correctamente", "success");
+            return $this->redirect('/users');
+        }
+
+        $this->setFlash("Error al actualizar el usuario", "danger");
+        return $this->redirect('/users');
+    }
+
+    public function delete($id)
+    {
+        $user = DB::table('users')->where('id', '=', $id)->first();
+        if ($user) {
+            $upload_dir = "uploads/{$user->carnet}";
+            $current_img = "{$upload_dir}/{$user->imagen}";
+            $result = DB::table('users')->where('id', '=', $id)->delete();
+
+            if($result > 0) {
+                if(file_exists($current_img)){
+                    unlink($current_img);
+                }
+                $this->setFlash("El usuario fue eliminado correctamente", "success");
+                return $this->redirect('/users');
+            }
+            $this->setFlash("Error al eliminar un usuario", "danger");
+            return $this->redirect('/users');
+        }
+        $this->setFlash("El usuario no fue encontrado", "danger");
+        return $this->redirect('/users');
     }
 }

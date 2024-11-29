@@ -23,28 +23,21 @@ Registro de usuarios
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                                     <div class="form-group">
                                         <label for="nombres">Nombres</label>
                                         <input type="text" name="nombres" id="nombres" class="form-control" placeholder="Ingresa los nombres" required>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                                     <div class="form-group">
                                         <label for="apellidos">Apellidos</label>
                                         <input type="text" name="apellidos" id="apellidos" class="form-control" placeholder="Ingresa los apellidos" required>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" id="email" class="form-control" placeholder="Ingresa el email" required>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                                     <div class="form-group">
                                         <label for="password">Password</label>
                                         <input type="password" name="password" id="password" class="form-control" placeholder="Ingresa la contraseña" required>
